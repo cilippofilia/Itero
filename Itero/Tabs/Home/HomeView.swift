@@ -5,6 +5,7 @@
 //  Created by Filippo Cilia on 25/02/2026.
 //
 
+import CoreSpotlight
 import SwiftUI
 
 struct HomeView: View {
@@ -75,16 +76,17 @@ struct HomeView: View {
 //            .navigationDestination(item: $viewModel.selectedTask) { task in
 //                EditTaskView(task: task)
 //            }
-//            .onContinueUserActivity(CSSearchableItemActionType, perform: loadSpotlightTask)
+            .contentMargins(.bottom, 70, for: .scrollContent)
+            .onContinueUserActivity(CSSearchableItemActionType, perform: loadSpotlightTask)
         }
     }
 
-//    private func loadSpotlightTask(_ userActivity: NSUserActivity) {
-//        guard let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String else {
-//            return
-//        }
+    private func loadSpotlightTask(_ userActivity: NSUserActivity) {
+        guard let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String else {
+            return
+        }
 //        viewModel.selectTask(with: uniqueIdentifier)
-//    }
+    }
 }
 
 // PinnedProjectCell.swift
