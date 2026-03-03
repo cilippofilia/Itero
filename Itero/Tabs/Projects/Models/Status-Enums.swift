@@ -8,17 +8,14 @@
 import Foundation
 
 enum ProjectStatus: String, CaseIterable, Codable {
-    static let `default` = Self.notSet
+    static let `default` = Self.notStarted
 
-    case notSet
     case notStarted
     case inProgress
     case done
 
     var title: String {
         switch self {
-        case .notSet:
-            "Not Set"
         case .notStarted:
             "Not Started"
         case .inProgress:
@@ -30,17 +27,14 @@ enum ProjectStatus: String, CaseIterable, Codable {
 }
 
 enum TaskStatus: String, CaseIterable, Codable {
-    static let `default` = Self.notSet
+    static let `default` = Self.notStarted
 
-    case notSet
     case notStarted
     case inProgress
     case done
 
     var title: String {
         switch self {
-        case .notSet:
-            "Not Set"
         case .notStarted:
             "Not Started"
         case .inProgress:

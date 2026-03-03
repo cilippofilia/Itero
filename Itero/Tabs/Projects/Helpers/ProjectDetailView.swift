@@ -111,14 +111,12 @@ struct ProjectDetailView: View {
     private func toggleTaskCompletion(for task: ProjectTask) {
         withAnimation(.snappy) {
             switch task.status {
-            case .notSet:
-                task.status = .notStarted
             case .notStarted:
                 task.status = .inProgress
             case .inProgress:
                 task.status = .done
             case .done:
-                task.status = .notSet
+                task.status = .notStarted
             }
         }
     }
