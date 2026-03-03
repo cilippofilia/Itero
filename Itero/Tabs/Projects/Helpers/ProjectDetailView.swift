@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProjectDetailView: View {
     @State private var isEditing: Bool = false
-    @State private var markTaskAsCompleted: Bool = false
 
     let project: Project
 
@@ -53,15 +52,27 @@ struct ProjectDetailView: View {
                         .foregroundStyle(.secondary)
 
                     ForEach(tasks) { task in
-                        Button(action: toggleTaskCompletion) {
+                        Button(action: {
+                            toggleTaskCompletion(for: task)
+                        }) {
                             HStack {
-                                Image(systemName: markTaskAsCompleted ? "checkmark.circle" : "circle")
-                                    .foregroundStyle(markTaskAsCompleted ? .green : .secondary)
-                                    .symbolEffect(.bounce, value: markTaskAsCompleted)
+                                Image(systemName: isTaskDone(for: task) ? "checkmark.circle" : "circle")
+                                    .foregroundStyle(isTaskDone(for: task) ? .green : .secondary)
+                                    .symbolEffect(.bounce, value: isTaskDone(for: task))
                                 Text(task.title)
-                                    .foregroundStyle(markTaskAsCompleted ? .secondary : .primary)
-                                    .strikethrough(markTaskAsCompleted, color: .secondary)
+                                    .foregroundStyle(isTaskDone(for: task) ? .secondary : .primary)
+                                    .strikethrough(isTaskDone(for: task), color: .secondary)
                                     .multilineTextAlignment(.leading)
+                                if task.status != .done {
+                                    Spacer(minLength: 8)
+                                    Text(task.status.title.uppercased())
+                                        .font(.caption2)
+                                        .bold()
+                                        .contentTransition(.numericText())
+                                        .padding(4)
+                                        .background(badgeColor(for: task).opacity(0.5))
+                                        .clipShape(.rect(cornerRadius: 4, style: .continuous))
+                                }
                             }
                             .padding(4)
                         }
@@ -84,9 +95,31 @@ struct ProjectDetailView: View {
         }
     }
 
-    private func toggleTaskCompletion() {
+    private func badgeColor(for task: ProjectTask) -> Color {
+        switch task.status {
+        case .inProgress:
+            return .yellow
+        default:
+            return .secondary
+        }
+    }
+
+    private func isTaskDone(for task: ProjectTask) -> Bool {
+        return task.status == .done
+    }
+
+    private func toggleTaskCompletion(for task: ProjectTask) {
         withAnimation(.snappy) {
-            markTaskAsCompleted.toggle()
+            switch task.status {
+            case .notSet:
+                task.status = .notStarted
+            case .notStarted:
+                task.status = .inProgress
+            case .inProgress:
+                task.status = .done
+            case .done:
+                task.status = .notSet
+            }
         }
     }
 }
