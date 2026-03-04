@@ -90,10 +90,9 @@ extension HomeView {
         .navigationDestination(for: Project.self) { project in
             ProjectDetailView(project: project)
         }
-        .navigationDestination(for: HomeDestination.self) { destination in
-            switch destination {
-            case .task:
-                TaskPlaceholderView(title: "Test Task")
+        .navigationDestination(for: UUID.self) { taskId in
+            if let task = tasks.first(where: { $0.id == taskId }) {
+                TaskDetailView(task: task)
             }
         }
         .contentMargins(.bottom, 70, for: .scrollContent)
@@ -130,10 +129,6 @@ extension HomeView {
         )
     }
     #endif
-}
-
-enum HomeDestination: Hashable {
-    case task
 }
 
 #Preview {

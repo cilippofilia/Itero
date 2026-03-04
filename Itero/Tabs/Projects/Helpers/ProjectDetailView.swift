@@ -45,38 +45,56 @@ struct ProjectDetailView: View {
                 }
                 .padding(.bottom)
 
-                // TODO: make these tappable like todo's in notes
                 if let tasks = project.tasks, !tasks.isEmpty {
                     Text("Tasks")
                         .font(.headline)
                         .foregroundStyle(.secondary)
 
                     ForEach(tasks) { task in
-                        Button(action: {
-                            toggleTaskCompletion(for: task)
-                        }) {
-                            HStack {
-                                Image(systemName: isTaskDone(for: task) ? "checkmark.circle" : "circle")
-                                    .foregroundStyle(isTaskDone(for: task) ? .green : .secondary)
-                                    .symbolEffect(.bounce, value: isTaskDone(for: task))
+                        HStack {
+                            Button(
+                                "Toggle Status",
+                                systemImage: isTaskDone(for: task) ? "checkmark.circle" : "circle"
+                            ) {
+                                toggleTaskCompletion(for: task)
+                            }
+                            .labelStyle(.iconOnly)
+                            .foregroundStyle(isTaskDone(for: task) ? .green : .secondary)
+                            .symbolEffect(.bounce, value: isTaskDone(for: task))
+                            .buttonStyle(.plain)
+
+                            NavigationLink(value: task.id) {
                                 Text(task.title)
                                     .foregroundStyle(isTaskDone(for: task) ? .secondary : .primary)
                                     .strikethrough(isTaskDone(for: task), color: .secondary)
                                     .multilineTextAlignment(.leading)
-                                if task.status != .done {
-                                    Spacer(minLength: 8)
-                                    Text(task.status.title.uppercased())
-                                        .font(.caption2)
-                                        .bold()
-                                        .contentTransition(.numericText())
-                                        .padding(4)
-                                        .background(badgeColor(for: task).opacity(0.5))
-                                        .clipShape(.rect(cornerRadius: 4, style: .continuous))
-                                }
                             }
-                            .padding(4)
+                            .buttonStyle(.plain)
+
+                            Spacer(minLength: 8)
+
+                            Menu {
+                                Picker("Status", selection: Binding(
+                                    get: { task.status },
+                                    set: { task.status = $0 }
+                                )) {
+                                    ForEach(TaskStatus.allCases, id: \.self) { status in
+                                        Text(status.title)
+                                            .tag(status)
+                                    }
+                                }
+                            } label: {
+                                Text(task.status.title.uppercased())
+                                    .font(.caption2)
+                                    .bold()
+                                    .contentTransition(.numericText())
+                                    .padding(4)
+                                    .background(badgeColor(for: task).opacity(0.5))
+                                    .clipShape(.rect(cornerRadius: 4, style: .continuous))
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
+                        .padding(4)
                     }
                 }
             }
@@ -92,6 +110,11 @@ struct ProjectDetailView: View {
         }
         .sheet(isPresented: $isEditing) {
             EditProjectDetails(project: project)
+        }
+        .navigationDestination(for: UUID.self) { taskId in
+            if let task = project.tasks?.first(where: { $0.id == taskId }) {
+                TaskDetailView(task: task)
+            }
         }
     }
 
@@ -110,13 +133,10 @@ struct ProjectDetailView: View {
 
     private func toggleTaskCompletion(for task: ProjectTask) {
         withAnimation(.snappy) {
-            switch task.status {
-            case .notStarted:
+            if task.status == .done {
                 task.status = .inProgress
-            case .inProgress:
+            } else {
                 task.status = .done
-            case .done:
-                task.status = .notStarted
             }
         }
     }

@@ -17,7 +17,7 @@ struct TasksSection: View {
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 ForEach(tasks) { task in
-                    NavigationLink(value: HomeDestination.task) {
+                    NavigationLink(value: task.id) {
                         TaskCell(title: task.title)
                     }
                     .buttonStyle(.plain)
