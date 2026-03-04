@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		18EAF1F12F4F72660007C73B /* Itero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itero.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18EAF1F12F4F72660007C73B /* Itera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Itera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		18EAF1F32F4F72660007C73B /* Itero */ = {
+		18EAF1F32F4F72660007C73B /* Itera */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Itero;
+			path = Itera;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		18EAF1E82F4F72660007C73B = {
 			isa = PBXGroup;
 			children = (
-				18EAF1F32F4F72660007C73B /* Itero */,
+				18EAF1F32F4F72660007C73B /* Itera */,
 				18EAF1F22F4F72660007C73B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		18EAF1F22F4F72660007C73B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				18EAF1F12F4F72660007C73B /* Itero.app */,
+				18EAF1F12F4F72660007C73B /* Itera.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		18EAF1F02F4F72660007C73B /* Itero */ = {
+		18EAF1F02F4F72660007C73B /* Itera */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 18EAF1FC2F4F72670007C73B /* Build configuration list for PBXNativeTarget "Itero" */;
+			buildConfigurationList = 18EAF1FC2F4F72670007C73B /* Build configuration list for PBXNativeTarget "Itera" */;
 			buildPhases = (
 				18EAF1ED2F4F72660007C73B /* Sources */,
 				18EAF1EE2F4F72660007C73B /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				18EAF1F32F4F72660007C73B /* Itero */,
+				18EAF1F32F4F72660007C73B /* Itera */,
 			);
-			name = Itero;
+			name = Itera;
 			packageProductDependencies = (
 			);
 			productName = Itero;
-			productReference = 18EAF1F12F4F72660007C73B /* Itero.app */;
+			productReference = 18EAF1F12F4F72660007C73B /* Itera.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 18EAF1EC2F4F72660007C73B /* Build configuration list for PBXProject "Itero" */;
+			buildConfigurationList = 18EAF1EC2F4F72660007C73B /* Build configuration list for PBXProject "Itera" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				18EAF1F02F4F72660007C73B /* Itero */,
+				18EAF1F02F4F72660007C73B /* Itera */,
 			);
 		};
 /* End PBXProject section */
@@ -256,7 +256,7 @@
 				DEVELOPMENT_TEAM = 3K3GFX53DY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Itero;
+				INFOPLIST_KEY_CFBundleDisplayName = Itera;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -269,7 +269,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cilia.filippo.Itero;
+				PRODUCT_BUNDLE_IDENTIFIER = cilia.filippo.Itera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -295,7 +295,7 @@
 				DEVELOPMENT_TEAM = 3K3GFX53DY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Itero;
+				INFOPLIST_KEY_CFBundleDisplayName = Itera;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -308,7 +308,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = cilia.filippo.Itero;
+				PRODUCT_BUNDLE_IDENTIFIER = cilia.filippo.Itera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -327,7 +327,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		18EAF1EC2F4F72660007C73B /* Build configuration list for PBXProject "Itero" */ = {
+		18EAF1EC2F4F72660007C73B /* Build configuration list for PBXProject "Itera" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				18EAF1FA2F4F72670007C73B /* Debug */,
@@ -336,7 +336,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		18EAF1FC2F4F72670007C73B /* Build configuration list for PBXNativeTarget "Itero" */ = {
+		18EAF1FC2F4F72670007C73B /* Build configuration list for PBXNativeTarget "Itera" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				18EAF1FD2F4F72670007C73B /* Debug */,

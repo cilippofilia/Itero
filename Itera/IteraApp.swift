@@ -1,5 +1,5 @@
 //
-//  IteroApp.swift
+//  IteraApp.swift
 //  Itero
 //
 //  Created by Filippo Cilia on 25/02/2026.
@@ -9,7 +9,7 @@ import SwiftData
 import SwiftUI
 
 @main
-struct IteroApp: App {
+struct IteraApp: App {
     private static let modelContainer: ModelContainer = {
         let schema = Schema([Project.self, ProjectTask.self])
         // TODO: change to false before release
