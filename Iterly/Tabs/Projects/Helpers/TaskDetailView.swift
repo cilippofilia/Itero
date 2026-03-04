@@ -58,6 +58,13 @@ struct TaskDetailView: View {
                         }
                         .buttonStyle(.plain)
                     }
+
+                    DatePicker(
+                        "Due Date",
+                        selection: .constant(task.dueDate),
+                        displayedComponents: .date
+                    )
+                    .datePickerStyle(.compact)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -74,7 +81,7 @@ struct TaskDetailView: View {
         title: "Test title",
         details: "Test details",
         status: .default,
-        dueDate: .distantFuture,
+        dueDate: .now.addingTimeInterval(14 * 24 * 60 * 60),
         priority: .default,
         creationDate: .now,
         project: project
