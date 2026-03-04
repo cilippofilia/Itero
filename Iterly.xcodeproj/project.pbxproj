@@ -10,9 +10,22 @@
 		18EAF1F12F4F72660007C73B /* Iterly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Iterly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		188AB2F12F58BC8A00E40CBD /* Exceptions for "Iterly" folder in "Iterly" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 18EAF1F02F4F72660007C73B /* Iterly */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		18EAF1F32F4F72660007C73B /* Iterly */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				188AB2F12F58BC8A00E40CBD /* Exceptions for "Iterly" folder in "Iterly" target */,
+			);
 			path = Iterly;
 			sourceTree = "<group>";
 		};
@@ -256,7 +269,9 @@
 				DEVELOPMENT_TEAM = 3K3GFX53DY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Iterly/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Iterly;
+				INFOPLIST_KEY_ITSEncryptionExportComplianceCode = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -295,7 +310,9 @@
 				DEVELOPMENT_TEAM = 3K3GFX53DY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Iterly/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Iterly;
+				INFOPLIST_KEY_ITSEncryptionExportComplianceCode = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
