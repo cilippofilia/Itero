@@ -11,15 +11,13 @@ import SwiftData
 @Model
 final class Project: Identifiable, Hashable {
     var id: UUID = UUID()
-    var title: String = ""
-    var details: String = ""
+    var title: String = "Project"
+    var details: String? = nil
     var priority: ProjectPriority = ProjectPriority.default
     var status: ProjectStatus = ProjectStatus.default
     var highlight: ProjectColor = ProjectColor.accentColor
-    var startDate: Date = .now
-    var dueDate: Date = .now
-    var creationDate: Date
-    var isPinned: Bool
+    var creationDate: Date = Date.now
+    var isPinned: Bool = false
 
     @Relationship(deleteRule: .cascade, inverse: \ProjectTask.project)
     var tasks: [ProjectTask]?
@@ -34,15 +32,13 @@ final class Project: Identifiable, Hashable {
 
     init(
         id: UUID = UUID(),
-        title: String = "",
-        details: String = "",
-        projectPriority: ProjectPriority = .default,
-        projectStatus: ProjectStatus = .default,
+        title: String = "Project",
+        details: String? = nil,
+        projectPriority: ProjectPriority = ProjectPriority.default,
+        projectStatus: ProjectStatus = ProjectStatus.default,
         color: ProjectColor = ProjectColor.accentColor,
         tasks: [ProjectTask]? = [],
-        startDate: Date = .now,
-        dueDate: Date = .now,
-        creationDate: Date = .now,
+        creationDate: Date = Date.now,
         isPinned: Bool = false
     ) {
         self.id = id
@@ -52,8 +48,6 @@ final class Project: Identifiable, Hashable {
         self.status = projectStatus
         self.highlight = color
         self.tasks = tasks
-        self.startDate = startDate
-        self.dueDate = dueDate
         self.creationDate = creationDate
         self.isPinned = isPinned
     }

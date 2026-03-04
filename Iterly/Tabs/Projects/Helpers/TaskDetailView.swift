@@ -18,8 +18,8 @@ struct TaskDetailView: View {
                     .bold()
                     .foregroundStyle(.primary)
 
-                if task.details.isEmpty == false {
-                    Text(task.details)
+                if let details = task.details, !details.isEmpty {
+                    Text(details)
                         .foregroundStyle(.secondary)
                         .padding(.bottom)
                 }
@@ -42,18 +42,21 @@ struct TaskDetailView: View {
                         .buttonStyle(.plain)
                     }
 
-                    LabeledContent("Priority", value: task.priority.title)
-
-                    LabeledContent("Start Date") {
-                        Text(task.startDate, format: .dateTime.month().day().year())
-                    }
-
-                    LabeledContent("Due Date") {
-                        Text(task.dueDate, format: .dateTime.month().day().year())
-                    }
-
-                    LabeledContent("Created") {
-                        Text(task.creationDate, format: .dateTime.month().day().year())
+                    LabeledContent("Priority") {
+                        Menu {
+                            Picker("Priority", selection: Binding(
+                                get: { task.priority },
+                                set: { task.priority = $0 }
+                            )) {
+                                ForEach(TaskPriority.allCases, id: \.self) { priority in
+                                    Text(priority.title)
+                                        .tag(priority)
+                                }
+                            }
+                        } label: {
+                            Text(task.priority.title)
+                        }
+                        .buttonStyle(.plain)
                     }
 
                     if let projectTitle = task.project?.title {
@@ -70,6 +73,6 @@ struct TaskDetailView: View {
 
 #Preview {
     NavigationStack {
-        TaskDetailView(task: SampleData.makeProjects()[0].tasks?[0] ?? ProjectTask(title: "Test task"))
+        TaskDetailView(task: SampleData.makeProjects()[0].tasks?[0] ?? .init(id: UUID(), title: "Test title", details: "Test details", status: .default, dueDate: .distantFuture, priority: .default, creationDate: .now, project: nil))
     }
 }

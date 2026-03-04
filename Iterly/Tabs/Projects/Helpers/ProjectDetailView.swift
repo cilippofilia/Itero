@@ -18,8 +18,8 @@ struct ProjectDetailView: View {
                     .bold()
                     .foregroundStyle(.primary)
 
-                if project.details.isEmpty == false {
-                    Text(project.details)
+                if let details = project.details, !details.isEmpty {
+                    Text(details)
                         .foregroundStyle(.secondary)
                         .padding(.bottom)
                 }
@@ -41,14 +41,21 @@ struct ProjectDetailView: View {
                         }
                         .buttonStyle(.plain)
                     }
-                    LabeledContent("Priority", value: project.priority.title)
-
-                    LabeledContent("Start Date") {
-                        Text(project.startDate, format: .dateTime.month().day().year())
-                    }
-
-                    LabeledContent("Due Date") {
-                        Text(project.dueDate, format: .dateTime.month().day().year())
+                    LabeledContent("Priority") {
+                        Menu {
+                            Picker("Priority", selection: Binding(
+                                get: { project.priority },
+                                set: { project.priority = $0 }
+                            )) {
+                                ForEach(ProjectPriority.allCases, id: \.self) { priority in
+                                    Text(priority.title)
+                                        .tag(priority)
+                                }
+                            }
+                        } label: {
+                            Text(project.priority.title)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.bottom)

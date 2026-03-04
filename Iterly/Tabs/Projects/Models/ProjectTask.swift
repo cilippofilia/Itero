@@ -10,32 +10,29 @@ import SwiftData
 
 @Model
 final class ProjectTask: Identifiable {
-    var id: UUID
-    var title: String
-    var details: String
-    var status: TaskStatus
-    var startDate: Date
-    var dueDate: Date
-    var priority: TaskPriority
-    var creationDate: Date
-    var project: Project?
+    var id: UUID = UUID()
+    var title: String = "Task"
+    var details: String? = nil
+    var status: TaskStatus = TaskStatus.default
+    var dueDate: Date? = nil
+    var priority: TaskPriority = TaskPriority.default
+    var creationDate: Date = Date.now
+    var project: Project? = nil
 
     init(
         id: UUID = UUID(),
-        title: String = "",
-        details: String = "",
-        status: TaskStatus = .default,
-        startDate: Date = .now,
-        dueDate: Date = .now,
-        priority: TaskPriority = .default,
-        creationDate: Date = .now,
+        title: String = "Task",
+        details: String? = nil,
+        status: TaskStatus = TaskStatus.default,
+        dueDate: Date? = nil,
+        priority: TaskPriority = TaskPriority.default,
+        creationDate: Date = Date.now,
         project: Project? = nil
     ) {
         self.id = id
         self.title = title
         self.details = details
         self.status = status
-        self.startDate = startDate
         self.dueDate = dueDate
         self.priority = priority
         self.creationDate = creationDate
