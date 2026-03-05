@@ -9,11 +9,9 @@ import SwiftUI
 
 struct TaskRowView: View {
     let task: ProjectTask
-    let isTaskDone: Bool
-    let toggleTaskCompletion: () -> Void
 
     var body: some View {
-        let isDone = isTaskDone
+        let isDone = task.status == .done
 
         HStack(alignment: .firstTextBaseline) {
             Button(
@@ -28,14 +26,20 @@ struct TaskRowView: View {
             .buttonStyle(.plain)
 
             NavigationLink(value: task.id) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text(task.title)
                         .foregroundStyle(isDone ? .secondary : .primary)
                         .strikethrough(isDone, color: .secondary)
                         .multilineTextAlignment(.leading)
 
-                    HStack {
-                        Text("Due: ") +
+                    HStack(spacing: 0) {
+                        Text(task.priority.badgeTitle)
+                            .badgeStyle(backgroundColor: task.priority.badgeBackgroundColor)
+                            .padding(.trailing, 4)
+
+                        Text("Due:")
+                            .foregroundStyle(.secondary)
+                            .padding(.trailing, 2)
                         Text(
                             task.dueDate,
                             format: .dateTime.day().month().year()
@@ -43,7 +47,6 @@ struct TaskRowView: View {
                         .bold()
                     }
                     .font(.caption)
-                    .foregroundStyle(.secondary)
                 }
             }
             .buttonStyle(.plain)
@@ -68,13 +71,20 @@ struct TaskRowView: View {
         }
         .padding(4)
     }
+
+    private func toggleTaskCompletion() {
+        withAnimation(.snappy) {
+            if task.status == .done {
+                task.status = .inProgress
+            } else {
+                task.status = .done
+            }
+        }
+    }
 }
 
 #Preview {
     TaskRowView(
-        task: SampleData.makeProjects()[0].tasks?[0] ?? .init(project: SampleData.makeProjects()[0]),
-        isTaskDone: false,
-        toggleTaskCompletion: {
-        }
+        task: SampleData.makeProjects()[0].tasks?[0] ?? .init(project: SampleData.makeProjects()[0])
     )
 }

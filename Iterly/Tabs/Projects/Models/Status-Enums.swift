@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 enum ProjectStatus: String, CaseIterable, Codable {
-    static let `default` = Self.dev
+    static let `default` = Self.plan
 
     case plan
     case dev
+    case beta
     case live
     case blocked
 
@@ -22,6 +23,8 @@ enum ProjectStatus: String, CaseIterable, Codable {
             return "Planning"
         case .dev:
             return "Development"
+        case .beta:
+            return "Beta"
         case .live:
             return "Live"
         case .blocked:
@@ -35,6 +38,8 @@ enum ProjectStatus: String, CaseIterable, Codable {
             return .secondary
         case .dev:
             return .yellow
+        case .beta:
+            return .orange
         case .live:
             return .green
         case .blocked:
@@ -46,29 +51,34 @@ enum ProjectStatus: String, CaseIterable, Codable {
 enum TaskStatus: String, CaseIterable, Codable {
     static let `default` = Self.notStarted
 
+    case blocked
     case notStarted
     case inProgress
     case done
 
     var title: String {
         switch self {
+        case .blocked:
+            return "Blocked"
         case .notStarted:
-            "Not Started"
+            return "Not Started"
         case .inProgress:
-            "In Progress"
+            return "In Progress"
         case .done:
-            "Done"
+            return "Done"
         }
     }
 
     var backgroundColor: Color {
         switch self {
+        case .blocked:
+            return .red
+        case .notStarted:
+            return .secondary
         case .inProgress:
             return .yellow
         case .done:
             return .green
-        case .notStarted:
-            return .secondary
         }
     }
 }

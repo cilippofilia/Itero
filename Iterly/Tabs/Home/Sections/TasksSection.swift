@@ -17,19 +17,19 @@ struct TasksSection: View {
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 ForEach(tasks) { task in
-                    NavigationLink(value: task.id) {
-                        TaskCell(title: task.title)
-                    }
-                    .buttonStyle(.plain)
+                    TaskRowView(task: task)
                 }
             }
             .padding(.horizontal)
         }
     }
+
 }
 
 #Preview {
     NavigationStack {
-        TasksSection(tasks: SampleData.makeProjects().flatMap { $0.tasks ?? [] })
+        ScrollView {
+            TasksSection(tasks: SampleData.makeProjects().flatMap { $0.tasks ?? [] })
+        }
     }
 }

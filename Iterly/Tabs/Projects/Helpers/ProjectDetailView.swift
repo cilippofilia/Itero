@@ -69,11 +69,7 @@ struct ProjectDetailView: View {
                         .foregroundStyle(.secondary)
 
                     ForEach(tasks) { task in
-                        TaskRowView(
-                            task: task,
-                            isTaskDone: isTaskDone(for: task),
-                            toggleTaskCompletion: { toggleTaskCompletion(for: task) }
-                        )
+                        TaskRowView(task: task)
                     }
                 }
             }
@@ -84,20 +80,6 @@ struct ProjectDetailView: View {
         .navigationDestination(for: UUID.self) { taskId in
             if let task = project.tasks?.first(where: { $0.id == taskId }) {
                 TaskDetailView(task: task)
-            }
-        }
-    }
-
-    private func isTaskDone(for task: ProjectTask) -> Bool {
-        return task.status == .done
-    }
-
-    private func toggleTaskCompletion(for task: ProjectTask) {
-        withAnimation(.snappy) {
-            if task.status == .done {
-                task.status = .inProgress
-            } else {
-                task.status = .done
             }
         }
     }
@@ -123,8 +105,14 @@ struct ProjectDetailView: View {
     }
 }
 
-#Preview {
+#Preview("Light") {
     NavigationStack {
         ProjectDetailView(project: SampleData.makeProjects()[0])
+    }
+}
+#Preview("Dark") {
+    NavigationStack {
+        ProjectDetailView(project: SampleData.makeProjects()[0])
+            .preferredColorScheme(.dark)
     }
 }
