@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectsView: View {
-    static let openTag: String? = "Open"
+    static let projectsTag: String? = "Projects"
 
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)

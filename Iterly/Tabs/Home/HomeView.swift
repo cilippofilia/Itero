@@ -44,13 +44,9 @@ struct HomeView: View {
             .navigationTitle("Home")
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    #if DEBUG
                     ereaseAllDataButton
                     addSampleDataButton
                     createProjectButton
-                    #else
-                    // TODO: Create project button
-                    #endif
                 }
             }
         }
@@ -64,12 +60,8 @@ extension HomeView {
         } description: {
             Text("There are no active projects at the moment. Create one to get started.")
         } actions: {
-            #if DEBUG
             addSampleDataButton
             createProjectButton
-            #else
-            createProjectButton
-            #endif
         }
     }
 
@@ -108,7 +100,6 @@ extension HomeView {
         )
     }
 
-    #if DEBUG
     var addSampleDataButton: some View {
         Button(
             "Add Data",
@@ -128,7 +119,6 @@ extension HomeView {
             }
         )
     }
-    #endif
 }
 
 #Preview {

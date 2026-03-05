@@ -38,6 +38,7 @@ struct ProjectDetailView: View {
                             }
                         } label: {
                             Text(project.status.title)
+                                .badgeStyle(backgroundColor: project.status.backgroundColor)
                         }
                         .buttonStyle(.plain)
                     }
@@ -54,6 +55,7 @@ struct ProjectDetailView: View {
                             }
                         } label: {
                             Text(project.priority.title)
+                                .badgeStyle(backgroundColor: project.priority.backgroundColor)
                         }
                         .buttonStyle(.plain)
                     }
@@ -67,50 +69,11 @@ struct ProjectDetailView: View {
                         .foregroundStyle(.secondary)
 
                     ForEach(tasks) { task in
-                        HStack {
-                            Button(
-                                "Toggle Status",
-                                systemImage: isTaskDone(for: task) ? "checkmark.circle" : "circle"
-                            ) {
-                                toggleTaskCompletion(for: task)
-                            }
-                            .labelStyle(.iconOnly)
-                            .foregroundStyle(isTaskDone(for: task) ? .green : .secondary)
-                            .symbolEffect(.bounce, value: isTaskDone(for: task))
-                            .buttonStyle(.plain)
-
-                            NavigationLink(value: task.id) {
-                                Text(task.title)
-                                    .foregroundStyle(isTaskDone(for: task) ? .secondary : .primary)
-                                    .strikethrough(isTaskDone(for: task), color: .secondary)
-                                    .multilineTextAlignment(.leading)
-                            }
-                            .buttonStyle(.plain)
-
-                            Spacer(minLength: 8)
-
-                            Menu {
-                                Picker("Status", selection: Binding(
-                                    get: { task.status },
-                                    set: { task.status = $0 }
-                                )) {
-                                    ForEach(TaskStatus.allCases, id: \.self) { status in
-                                        Text(status.title)
-                                            .tag(status)
-                                    }
-                                }
-                            } label: {
-                                Text(task.status.title.uppercased())
-                                    .font(.caption2)
-                                    .bold()
-                                    .contentTransition(.numericText())
-                                    .padding(4)
-                                    .background(task.status.backgroundColor.opacity(0.5))
-                                    .clipShape(.rect(cornerRadius: 4, style: .continuous))
-                            }
-                            .buttonStyle(.plain)
-                        }
-                        .padding(4)
+                        TaskRowView(
+                            task: task,
+                            isTaskDone: isTaskDone(for: task),
+                            toggleTaskCompletion: { toggleTaskCompletion(for: task) }
+                        )
                     }
                 }
             }

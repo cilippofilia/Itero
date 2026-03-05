@@ -75,7 +75,7 @@ enum SampleData {
             title: "Drinko.",
             details: "Cocktail making masterclass at your fingertips.",
             projectPriority: .high,
-            projectStatus: .inProgress,
+            projectStatus: .live,
             creationDate: calendar.date(byAdding: .day, value: -3, to: now) ?? now,
             isPinned: true
         )
@@ -83,19 +83,19 @@ enum SampleData {
 
         let onboardingTasks = [
             ProjectTask(title: "Design the welcome flow", details: "Design onboarding to explain key areas of the app - Learn, Cocktails, Cabinet.", status: .inProgress, priority: .high, project: onboarding),
-            ProjectTask(title: "Write onboarding copy", status: .notStarted, priority: .normal, project: onboarding),
-            ProjectTask(title: "QA localization", status: .notStarted, priority: .normal, project: onboarding),
-            ProjectTask(title: "NA Release", status: .done, priority: .normal, project: onboarding),
-            ProjectTask(title: "IR Release", status: .done, priority: .normal, project: onboarding),
-            ProjectTask(title: "UK Release", status: .done, priority: .normal, project: onboarding)
+            ProjectTask(title: "Write onboarding copy", status: .notStarted, priority: .medium, project: onboarding),
+            ProjectTask(title: "QA localization", status: .notStarted, priority: .medium, project: onboarding),
+            ProjectTask(title: "NA Release", status: .done, priority: .medium, project: onboarding),
+            ProjectTask(title: "IR Release", status: .done, priority: .medium, project: onboarding),
+            ProjectTask(title: "UK Release", status: .done, priority: .medium, project: onboarding)
         ]
         onboarding.tasks = onboardingTasks
 
         let insights = Project(
             title: "Insights",
             details: "Weekly reporting",
-            projectPriority: .normal,
-            projectStatus: .notStarted,
+            projectPriority: .medium,
+            projectStatus: .dev,
             creationDate: calendar.date(byAdding: .day, value: -5, to: now) ?? now,
             isPinned: false
         )
@@ -103,7 +103,7 @@ enum SampleData {
 
         let insightsTasks = [
             ProjectTask(title: "Define report metrics", status: .notStarted, priority: .high, project: insights),
-            ProjectTask(title: "Prototype charts", status: .notStarted, priority: .normal, project: insights)
+            ProjectTask(title: "Prototype charts", status: .notStarted, priority: .medium, project: insights)
         ]
         insights.tasks = insightsTasks
 
@@ -111,32 +111,32 @@ enum SampleData {
             title: "Launch Plan",
             details: "Campaign and timeline",
             projectPriority: .low,
-            projectStatus: .notStarted,
+            projectStatus: .plan,
             creationDate: calendar.date(byAdding: .day, value: -1, to: now) ?? now,
             isPinned: false
         )
         marketing.currentRelease = ProjectRelease(version: "2.0.0", build: "201", project: marketing)
 
         let marketingTasks = [
-            ProjectTask(title: "Draft announcement", status: .notStarted, priority: .normal, project: marketing),
-            ProjectTask(title: "Prepare assets", status: .notStarted, priority: .normal, project: marketing)
+            ProjectTask(title: "Draft announcement", status: .notStarted, priority: .medium, project: marketing),
+            ProjectTask(title: "Prepare assets", status: .notStarted, priority: .medium, project: marketing)
         ]
         marketing.tasks = marketingTasks
 
         let cleanup = Project(
             title: "Tech Cleanup",
             details: "Reduce tech debt",
-            projectPriority: .normal,
-            projectStatus: .inProgress,
+            projectPriority: .medium,
+            projectStatus: .blocked,
             creationDate: calendar.date(byAdding: .day, value: -10, to: now) ?? now,
             isPinned: false
         )
         cleanup.currentRelease = ProjectRelease(version: "3.2.1", build: "332", project: cleanup)
 
         let cleanupTasks = [
-            ProjectTask(title: "Remove legacy screens", status: .inProgress, priority: .normal, project: cleanup),
+            ProjectTask(title: "Remove legacy screens", status: .inProgress, priority: .medium, project: cleanup),
             ProjectTask(title: "Update API clients", status: .notStarted, priority: .high, project: cleanup),
-            ProjectTask(title: "Audit permissions", status: .notStarted, priority: .normal, project: cleanup)
+            ProjectTask(title: "Audit permissions", status: .notStarted, priority: .medium, project: cleanup)
         ]
         cleanup.tasks = cleanupTasks
 

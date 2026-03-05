@@ -5,14 +5,14 @@
 //  Created by Filippo Cilia on 01/03/2026.
 //
 
-import Foundation
+import SwiftUI
 
 enum ProjectPriority: String, CaseIterable, Codable {
     static let `default` = Self.notSet
 
     case notSet
     case low
-    case normal
+    case medium
     case high
 
     var title: String {
@@ -21,10 +21,23 @@ enum ProjectPriority: String, CaseIterable, Codable {
             "Not Set"
         case .low:
             "Low"
-        case .normal:
-            "Normal"
+        case .medium:
+            "Medium"
         case .high:
             "High"
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .notSet:
+            return .secondary
+        case .low:
+            return .blue
+        case .medium:
+            return .yellow
+        case .high:
+            return .red
         }
     }
 }
@@ -34,7 +47,7 @@ enum TaskPriority: String, CaseIterable, Codable {
 
     case notSet
     case low
-    case normal
+    case medium
     case high
 
     var title: String {
@@ -43,10 +56,23 @@ enum TaskPriority: String, CaseIterable, Codable {
             "Not Set"
         case .low:
             "Low"
-        case .normal:
-            "Normal"
+        case .medium:
+            "Medium"
         case .high:
             "High"
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .notSet:
+            return .secondary
+        case .low:
+            return .blue
+        case .medium:
+            return .yellow
+        case .high:
+            return .orange
         }
     }
 }

@@ -9,31 +9,36 @@ import Foundation
 import SwiftUI
 
 enum ProjectStatus: String, CaseIterable, Codable {
-    static let `default` = Self.notStarted
+    static let `default` = Self.dev
 
-    case notStarted
-    case inProgress
-    case done
+    case plan
+    case dev
+    case live
+    case blocked
 
     var title: String {
         switch self {
-        case .notStarted:
-            "Not Started"
-        case .inProgress:
-            "In Progress"
-        case .done:
-            "Done"
+        case .plan:
+            return "Planning"
+        case .dev:
+            return "Development"
+        case .live:
+            return "Live"
+        case .blocked:
+            return "Blocked"
         }
     }
 
     var backgroundColor: Color {
         switch self {
-        case .inProgress:
-            return .yellow
-        case .done:
-            return .green
-        case .notStarted:
+        case .plan:
             return .secondary
+        case .dev:
+            return .yellow
+        case .live:
+            return .green
+        case .blocked:
+            return .red
         }
     }
 }

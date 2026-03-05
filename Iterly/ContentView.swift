@@ -18,7 +18,7 @@ struct ContentView: View {
                 HomeView()
             }
 
-            Tab("Open", systemImage: "list.bullet", value: ProjectsView.openTag) {
+            Tab("Projects", systemImage: "folder", value: ProjectsView.projectsTag) {
                 ProjectsView()
             }
 
