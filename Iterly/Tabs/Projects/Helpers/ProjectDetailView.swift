@@ -83,6 +83,17 @@ struct ProjectDetailView: View {
                 TaskDetailView(task: task)
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    project.isPinned.toggle()
+                }) {
+                    Image(systemName: "pin")
+                        .rotationEffect(Angle(degrees: 45))
+                        .symbolVariant(project.isPinned ? .fill : .none)
+                }
+            }
+        }
     }
 
     private func releaseText(for project: Project) -> String {

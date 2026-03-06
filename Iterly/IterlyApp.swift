@@ -12,8 +12,7 @@ import SwiftUI
 struct IterlyApp: App {
     private static let modelContainer: ModelContainer = {
         let schema = Schema([Project.self, ProjectTask.self, ProjectRelease.self])
-        // TODO: change to false before release
-        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
             return try ModelContainer(for: schema, configurations: [configuration])

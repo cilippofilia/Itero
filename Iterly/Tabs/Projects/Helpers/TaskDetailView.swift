@@ -64,7 +64,10 @@ struct TaskDetailView: View {
 
                     DatePicker(
                         "Due Date",
-                        selection: .constant(task.dueDate),
+                        selection: Binding(
+                            get: { task.dueDate },
+                            set: { task.dueDate = $0 }
+                        ),
                         displayedComponents: .date
                     )
                     .datePickerStyle(.compact)
