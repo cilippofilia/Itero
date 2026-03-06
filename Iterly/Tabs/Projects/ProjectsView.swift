@@ -40,7 +40,7 @@ struct ProjectsView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-//            .scrollBounceBehavior(.basedOnSize)
+            .scrollBounceBehavior(.basedOnSize)
             .listRowSpacing(8)
             .navigationTitle("Projects")
             .navigationDestination(for: Project.self) { project in
