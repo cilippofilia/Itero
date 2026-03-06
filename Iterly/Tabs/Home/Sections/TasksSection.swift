@@ -12,12 +12,14 @@ struct TasksSection: View {
     let tasks: [ProjectTask]?
 
     var body: some View {
-        if let tasks, !tasks.isEmpty {
+        let upcomingTasks = (tasks ?? []).filter { $0.status != .done }
+
+        if !upcomingTasks.isEmpty {
             VStack(alignment: .leading) {
-                Text("Coming up tasks")
+                Text("Upcoming tasks")
                     .font(.headline)
                     .foregroundStyle(.secondary)
-                ForEach(tasks) { task in
+                ForEach(upcomingTasks) { task in
                     TaskRowView(task: task)
                 }
             }
