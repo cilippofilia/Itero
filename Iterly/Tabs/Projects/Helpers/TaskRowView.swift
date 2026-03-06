@@ -35,11 +35,15 @@ struct TaskRowView: View {
 
                     HStack(spacing: 0) {
                         Text(task.priority.badgeTitle)
-                            .badgeStyle(backgroundColor: task.priority.badgeBackgroundColor)
+                            .overlay(alignment: .bottom) {
+                                RoundedRectangle(cornerRadius: 2, style: .continuous)
+                                    .frame(height: 3)
+                                    .foregroundStyle(isDone ? .secondary.opacity(0.5) : task.priority.badgeBackgroundColor)
+                                    .offset(y: 2)
+                            }
                             .padding(.trailing, 4)
 
                         Text("Due:")
-                            .foregroundStyle(.secondary)
                             .padding(.trailing, 2)
                         Text(
                             task.dueDate,
@@ -48,6 +52,7 @@ struct TaskRowView: View {
                         .bold()
                     }
                     .font(.caption)
+                    .foregroundStyle(isDone ? .secondary : Color.primary)
                 }
             }
             .buttonStyle(.plain)
