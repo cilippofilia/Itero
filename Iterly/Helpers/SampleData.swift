@@ -154,6 +154,65 @@ enum SampleData {
         ]
         cleanup.tasks = cleanupTasks
 
-        return [onboarding, insights, marketing, cleanup]
+        let payments = Project(
+            title: "Payments Revamp",
+            details: "Streamline checkout and subscriptions.",
+            projectPriority: .high,
+            projectStatus: .dev,
+            creationDate: calendar.date(byAdding: .day, value: -7, to: now) ?? now,
+            isPinned: true
+        )
+        payments.currentRelease = ProjectRelease(version: "1.4.0", build: "119", project: payments)
+
+        let paymentsTasks = [
+            ProjectTask(title: "Map payment flows", details: "Audit one-time and subscription flows.", status: .inProgress, priority: .high, project: payments),
+            ProjectTask(title: "Consolidate price tiers", status: .notStarted, priority: .medium, project: payments),
+            ProjectTask(title: "Retry logic for failed charges", status: .blocked, priority: .high, project: payments),
+            ProjectTask(title: "Receipt validation checks", status: .notStarted, priority: .high, project: payments),
+            ProjectTask(title: "Upgrade paywall copy", status: .notStarted, priority: .medium, project: payments),
+            ProjectTask(title: "QA sandbox purchases", status: .done, priority: .low, project: payments)
+        ]
+        payments.tasks = paymentsTasks
+
+        let community = Project(
+            title: "Community Beta",
+            details: "Invite-only social layer for power users.",
+            projectPriority: .medium,
+            projectStatus: .plan,
+            creationDate: calendar.date(byAdding: .day, value: -2, to: now) ?? now,
+            isPinned: false
+        )
+        community.currentRelease = ProjectRelease(version: "0.3.0", build: "27", project: community)
+
+        let communityTasks = [
+            ProjectTask(title: "Define beta cohort", status: .notStarted, priority: .high, project: community),
+            ProjectTask(title: "Moderation rules", status: .notStarted, priority: .medium, project: community),
+            ProjectTask(title: "Community guidelines review", status: .blocked, priority: .medium, project: community),
+            ProjectTask(title: "Invite workflow prototype", status: .inProgress, priority: .high, project: community),
+            ProjectTask(title: "Feedback collection plan", status: .inProgress, priority: .medium, project: community),
+            ProjectTask(title: "Welcome post templates", status: .done, priority: .low, project: community)
+        ]
+        community.tasks = communityTasks
+
+        let designSystem = Project(
+            title: "Design System",
+            details: "Unify tokens, components, and accessibility.",
+            projectPriority: .low,
+            projectStatus: .dev,
+            creationDate: calendar.date(byAdding: .day, value: -14, to: now) ?? now,
+            isPinned: false
+        )
+        designSystem.currentRelease = ProjectRelease(version: "0.7.1", build: "64", project: designSystem)
+
+        let designSystemTasks = [
+            ProjectTask(title: "Audit component library", status: .inProgress, priority: .medium, project: designSystem),
+            ProjectTask(title: "Token alignment checklist", status: .notStarted, priority: .medium, project: designSystem),
+            ProjectTask(title: "Contrast fixes", status: .notStarted, priority: .high, project: designSystem),
+            ProjectTask(title: "Icon sizing rules", status: .done, priority: .low, project: designSystem),
+            ProjectTask(title: "Typography scale update", status: .blocked, priority: .medium, project: designSystem)
+        ]
+        designSystem.tasks = designSystemTasks
+
+        return [onboarding, insights, marketing, cleanup, payments, community, designSystem]
     }
 }

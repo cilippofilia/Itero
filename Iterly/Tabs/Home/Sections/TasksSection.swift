@@ -12,7 +12,7 @@ struct TasksSection: View {
     let tasks: [ProjectTask]?
 
     var body: some View {
-        let upcomingTasks = (tasks ?? []).filter { $0.status != .done }
+        let upcomingTasks = tasks ?? []
 
         if !upcomingTasks.isEmpty {
             VStack(alignment: .leading) {
@@ -26,7 +26,6 @@ struct TasksSection: View {
             .padding(.horizontal)
         }
     }
-
 }
 
 #Preview {

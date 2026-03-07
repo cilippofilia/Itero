@@ -56,13 +56,22 @@ extension HomeView {
     private var availableView: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                let upcomingTasks = tasks
+                    .filter { $0.status != .done }
+                    .sorted { lhs, rhs in
+                        if lhs.dueDate != rhs.dueDate {
+                            return lhs.dueDate < rhs.dueDate
+                        }
+                        return lhs.priority.sortRank < rhs.priority.sortRank
+                    }
+
                 PinnedProjectsSection(projects: pinnedProjects)
                     .padding(.bottom)
 
                 ProjectsSection(projects: Array(projects.prefix(5)))
                     .padding(.bottom)
 
-                TasksSection(tasks: Array(tasks.prefix(5)))
+                TasksSection(tasks: Array(upcomingTasks.prefix(10)))
                     .padding(.bottom)
             }
         }

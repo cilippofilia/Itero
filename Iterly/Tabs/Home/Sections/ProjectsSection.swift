@@ -18,7 +18,16 @@ struct ProjectsSection: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let projects, !projects.isEmpty {
-                headerView
+                HStack(spacing: .zero) {
+                    Image(systemName: "folder")
+                        .padding(.trailing, 4)
+                    Text("Projects")
+                        .padding(.trailing, 2)
+                    Text("(\(projects.count))")
+                }
+                .font(.headline)
+                .padding(.horizontal)
+                .foregroundStyle(.secondary)
 
                 LazyVGrid(columns: columns) {
                     ForEach(projects) { project in
@@ -39,16 +48,6 @@ struct ProjectsSection: View {
                 .padding(.horizontal)
             }
         }
-    }
-
-    var headerView: some View {
-        HStack {
-            Image(systemName: "folder")
-            Text("Projects")
-                .font(.headline)
-        }
-        .padding(.horizontal)
-        .foregroundStyle(.secondary)
     }
 }
 
