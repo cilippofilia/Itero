@@ -33,37 +33,22 @@ struct ProjectsView: View {
                 if projects.isEmpty {
                     UnavailableProjectsView()
                 } else {
-                    List(projects) { project in
-                        NavigationLink(value: project) {
-                            ProjectRowView(
-                                title: project.title,
-                                statusTitle: project.status.title,
-                                statusColor: project.status.backgroundColor,
-                                tasks: project.tasks ?? [],
-                                blockedAmount: project.blockedAmount,
-                                inProgressAmount: project.inProgressAmount,
-                                doneAmount: project.doneAmount
-                            )
-                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                Button(action: {
-                                    if viewModel.togglePin(project: project, modelContext: modelContext) == false {
-                                        showPinLimitAlert = true
-                                    }
-                                }) {
-                                    Label("Pin", systemImage: "pin")
+                    List {
+                        if !activeProjects.isEmpty {
+                            Section {
+                                ForEach(activeProjects) { project in
+                                    projectRow(project)
                                 }
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button(action: {
-                                    projectPendingDeletion = project
-                                    showDeletionAlert = true
-                                }) {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                                .tint(.red)
                             }
                         }
-                        .buttonStyle(.plain)
+
+                        if !closedProjects.isEmpty {
+                            Section("Closed Projects") {
+                                ForEach(closedProjects) { project in
+                                    projectRow(project)
+                                }
+                            }
+                        }
                     }
                     .listStyle(.insetGrouped)
                     .contentMargins(.bottom, 70, for: .scrollContent)
@@ -125,6 +110,48 @@ struct ProjectsView: View {
                 showAddProjectSheet = true
             }
         )
+    }
+
+    private var activeProjects: [Project] {
+        projects.filter { $0.status != .closed }
+    }
+
+    private var closedProjects: [Project] {
+        projects.filter { $0.status == .closed }
+    }
+
+    @ViewBuilder
+    private func projectRow(_ project: Project) -> some View {
+        NavigationLink(value: project) {
+            ProjectRowView(
+                title: project.title,
+                statusTitle: project.status.title,
+                statusColor: project.status.backgroundColor,
+                tasks: project.tasks ?? [],
+                blockedAmount: project.blockedAmount,
+                inProgressAmount: project.inProgressAmount,
+                doneAmount: project.doneAmount
+            )
+            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                Button(action: {
+                    if viewModel.togglePin(project: project, modelContext: modelContext) == false {
+                        showPinLimitAlert = true
+                    }
+                }) {
+                    Label("Pin", systemImage: "pin")
+                }
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                Button(action: {
+                    projectPendingDeletion = project
+                    showDeletionAlert = true
+                }) {
+                    Label("Delete", systemImage: "trash")
+                }
+                .tint(.red)
+            }
+        }
+        .buttonStyle(.plain)
     }
 
     private func deleteProject(_ project: Project) {
