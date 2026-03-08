@@ -13,6 +13,7 @@ struct ProjectDetailView: View {
     @State private var viewModel = ProjectViewModel()
     @State private var showPinLimitAlert: Bool = false
     @State private var projectToEdit: Project?
+    @State private var showAddTaskSheet: Bool = false
     @Bindable var project: Project
 
     var body: some View {
@@ -99,7 +100,7 @@ struct ProjectDetailView: View {
                     }
 
                     Button(action: {
-                        addTask()
+                        showAddTaskSheet = true
                     }) {
                         Label("Add task", systemImage: "plus")
                     }
@@ -138,6 +139,9 @@ struct ProjectDetailView: View {
         .sheet(item: $projectToEdit) { project in
             ProjectFormView(project: project)
         }
+        .sheet(isPresented: $showAddTaskSheet) {
+            TaskFormView(project: project)
+        }
         .alert("Can't Pin Project", isPresented: $showPinLimitAlert) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -163,19 +167,6 @@ struct ProjectDetailView: View {
         }
 
         return "v\(release.version) (\(release.build))"
-    }
-
-    private func addTask() {
-        withAnimation(.snappy) {
-            let newTask = ProjectTask(project: project)
-            modelContext.insert(newTask)
-
-            if project.tasks == nil {
-                project.tasks = []
-            }
-            project.tasks?.append(newTask)
-            project.touch()
-        }
     }
 
     private var pinButtonView: some View {

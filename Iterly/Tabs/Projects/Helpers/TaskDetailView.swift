@@ -9,6 +9,7 @@ import SwiftData
 import SwiftUI
 
 struct TaskDetailView: View {
+    @State private var taskToEdit: ProjectTask?
     let task: ProjectTask
 
     var body: some View {
@@ -98,6 +99,16 @@ struct TaskDetailView: View {
             .padding([.horizontal, .bottom])
         }
         .navigationTitle(task.project.title)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Edit", systemImage: "pencil.line") {
+                    taskToEdit = task
+                }
+            }
+        }
+        .sheet(item: $taskToEdit) { task in
+            TaskFormView(project: task.project, task: task)
+        }
     }
 }
 
