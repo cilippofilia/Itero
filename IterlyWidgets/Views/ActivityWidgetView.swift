@@ -16,9 +16,9 @@ struct ActivityWidgetView: View {
     var body: some View {
         switch family {
         case .systemMedium:
-            ActivityWidgetMediumView(snapshot: entry.snapshot)
+            ActivityWidgetMediumView(date: entry.date, snapshot: entry.snapshot)
         case .systemLarge:
-            ActivityWidgetLargeView(snapshot: entry.snapshot)
+            ActivityWidgetLargeView(date: entry.date, snapshot: entry.snapshot)
         default:
             ActivityWidgetSmallView(date: entry.date, snapshot: entry.snapshot)
         }
@@ -31,18 +31,12 @@ private struct ActivityWidgetSmallView: View {
 
     private var isActiveStreak: Bool { snapshot.streak > 0 }
 
-    /// 0 when the streak is fully lit (already logged today, or freshly carried over
-    /// from yesterday), ramping up in four six-hourly steps if nothing's logged yet —
-    /// the flame "burning down" through the day. Caps below full cold so an active-but-
-    /// unlogged streak always reads as still-alive; only a truly lapsed streak (1) goes
-    /// fully gray.
     private var coldness: Double {
-        guard isActiveStreak else { return 1 }
-        guard !snapshot.hasLoggedToday else { return 0 }
-
-        let hour = Calendar.autoupdatingCurrent.component(.hour, from: date)
-        let sixHourStep = hour / 6
-        return Double(sixHourStep) / 4
+        ActivityStreakColdness.value(
+            isActiveStreak: isActiveStreak,
+            hasLoggedToday: snapshot.hasLoggedToday,
+            date: date
+        )
     }
 
     var body: some View {
@@ -119,11 +113,12 @@ private struct ActivityWidgetSmallBackground: View {
 }
 
 private struct ActivityWidgetMediumView: View {
+    let date: Date
     let snapshot: ActivityWidgetSnapshot
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ActivityWidgetHeaderView(streak: snapshot.streak)
+            ActivityWidgetHeaderView(date: date, snapshot: snapshot)
             ActivityHeatmapMiniView(weeks: snapshot.weeks)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -133,6 +128,7 @@ private struct ActivityWidgetMediumView: View {
 }
 
 private struct ActivityWidgetLargeView: View {
+    let date: Date
     let snapshot: ActivityWidgetSnapshot
 
     /// Matches the medium widget's cell density; also fixes the heatmap band height.
@@ -141,7 +137,7 @@ private struct ActivityWidgetLargeView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            ActivityWidgetHeaderView(streak: snapshot.streak)
+            ActivityWidgetHeaderView(date: date, snapshot: snapshot)
 
             ActivityHeatmapMiniView(
                 weeks: snapshot.weeks,
@@ -185,14 +181,23 @@ private struct ActivityWidgetLargeView: View {
 
 /// A wordmark plus the streak pill, shared by the medium and large widgets.
 private struct ActivityWidgetHeaderView: View {
-    let streak: Int
+    let date: Date
+    let snapshot: ActivityWidgetSnapshot
+
+    private var coldness: Double {
+        ActivityStreakColdness.value(
+            isActiveStreak: snapshot.streak > 0,
+            hasLoggedToday: snapshot.hasLoggedToday,
+            date: date
+        )
+    }
 
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
             Text("Activity")
                 .font(.system(.headline, design: .rounded, weight: .bold))
             Spacer()
-            HotStreakChip(streak: streak)
+            HotStreakChip(streak: snapshot.streak, coldness: coldness)
         }
     }
 }
@@ -292,6 +297,25 @@ private struct ActivityWidgetProjectRowView: View {
     IterlyActivityWidget()
 } timeline: {
     ActivityWidgetEntry(date: .now, snapshot: .samplePlaceholder)
+}
+
+/// Same streak, nothing logged yet today — scrub the canvas timeline bar to watch the
+/// header's flame glyph desaturate towards gray across the four six-hourly steps.
+#Preview("Medium – Cooling Through the Day", as: .systemMedium) {
+    IterlyActivityWidget()
+} timeline: {
+    let calendar = Calendar.current
+    let unloggedSnapshot = ActivityWidgetSnapshot(
+        weeks: ActivityWidgetSnapshot.samplePlaceholder.weeks, streak: 6, hasLoggedToday: false,
+        totalCount: 30, busiestDay: nil, generatedAt: .now
+    )
+
+    for hour in [1, 7, 13, 19] {
+        ActivityWidgetEntry(
+            date: calendar.date(bySettingHour: hour, minute: 0, second: 0, of: .now) ?? .now,
+            snapshot: unloggedSnapshot
+        )
+    }
 }
 
 #Preview("Small – Logged Today", as: .systemSmall) {

@@ -14,11 +14,16 @@ import IterlyCore
 struct HotStreakFlameGlyph: View {
     let streak: Int
     var font: Font = .system(.title, design: .rounded, weight: .bold)
+    /// 0 (fully lit) to 1 (cold): desaturates the flame toward gray as the day passes
+    /// without a log, echoing the small widget's burning-down background without
+    /// touching this view's own background. See `ActivityStreakColdness`.
+    var coldness: Double = 0
 
     var body: some View {
         Image(systemName: symbolName)
             .font(font)
             .foregroundStyle(flameStyle)
+            .saturation(1 - coldness)
     }
 
     private var tier: HotStreakTier {
@@ -50,10 +55,15 @@ struct HotStreakFlameGlyph: View {
 /// Compact horizontal streak pill for the medium and large widget headers.
 struct HotStreakChip: View {
     let streak: Int
+    var coldness: Double = 0
 
     var body: some View {
         HStack(spacing: 5) {
-            HotStreakFlameGlyph(streak: streak, font: .system(.subheadline, design: .rounded, weight: .bold))
+            HotStreakFlameGlyph(
+                streak: streak,
+                font: .system(.subheadline, design: .rounded, weight: .bold),
+                coldness: coldness
+            )
 
             Text(streak, format: .number)
                 .font(.system(.subheadline, design: .rounded, weight: .bold))
