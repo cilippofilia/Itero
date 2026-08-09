@@ -252,7 +252,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				69B5B80D0C1C370C0D3FB073 /* XCLocalSwiftPackageReference "IterlyCore" */,
-				18B49F5B3028BD6F00A268FE /* XCLocalSwiftPackageReference "../../Other/PrivateAds" */,
+				44637216F15BAD2DDC997153 /* XCRemoteSwiftPackageReference "PrivateAds" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18EAF1F22F4F72660007C73B /* Products */;
@@ -681,15 +681,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		18B49F5B3028BD6F00A268FE /* XCLocalSwiftPackageReference "../../Other/PrivateAds" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Other/PrivateAds;
-		};
 		69B5B80D0C1C370C0D3FB073 /* XCLocalSwiftPackageReference "IterlyCore" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = IterlyCore;
 		};
 /* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		44637216F15BAD2DDC997153 /* XCRemoteSwiftPackageReference "PrivateAds" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cilippofilia/PrivateAds.git";
+			requirement = {
+				kind = branch;
+				branch = main;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		06DDFBE4D6E4DA90C79C40D5 /* IterlyCore */ = {
@@ -699,6 +706,7 @@
 		};
 		18B49F5C3028BD6F00A268FE /* PrivateAds */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 44637216F15BAD2DDC997153 /* XCRemoteSwiftPackageReference "PrivateAds" */;
 			productName = PrivateAds;
 		};
 		2680F3D4283540A519329505 /* IterlyCore */ = {
