@@ -61,11 +61,11 @@ final class SettingsViewModel {
         var subject: String {
             switch self {
             case .reportBug:
-                "Bug Report"
+                "Iterly: Bug Report"
             case .requestFeature:
-                "Feature idea"
+                "Iterly: Feature idea"
             case .otherEnquiry:
-                ""
+                "Iterly: Enquiry"
             }
         }
 
