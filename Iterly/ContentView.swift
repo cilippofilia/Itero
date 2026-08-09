@@ -5,7 +5,7 @@
 //  Created by Filippo Cilia on 25/02/2026.
 //
 
-import Billboard
+import PrivateAds
 import SwiftData
 import SwiftUI
 import IterlyCore
@@ -16,7 +16,7 @@ struct ContentView: View {
     @Environment(CrossPromoSignal.self) private var crossPromoSignal
     @Environment(RemoveAdsStore.self) private var removeAdsStore
 
-    @State private var interstitialAd: BillboardAd?
+    @State private var interstitialAd: Ad?
 
     var body: some View {
         TabView(selection: $selectedView) {
@@ -40,14 +40,14 @@ struct ContentView: View {
             backfillProjectTypesIfNeeded()
             backfillUsefulLinksIfNeeded()
         }
-        // A Billboard cross-promo ad every 3rd interaction bump (new task, new subtask, new
+        // A PrivateAds cross-promo ad every 3rd interaction bump (new task, new subtask, new
         // project, or a status change — see `CrossPromoSignal`). Lives here rather than on any
         // one tab since the triggering action can happen from Dashboard, Projects, or Activity;
         // `.fullScreenCover` presents over the whole window regardless of which tab is active.
-        // Fetched directly (rather than via Billboard's own `.showBillboard(when:)`) so a failed
+        // Fetched directly (rather than via PrivateAds's own `.showAd(when:)`) so a failed
         // fetch can't get the trigger stuck — see NineTilesPuzzle's MenuView for the same pattern.
         .fullScreenCover(item: $interstitialAd) { ad in
-            BillboardView(advert: ad, config: .crossPromo) {
+            AdView(advert: ad, config: .crossPromo) {
                 CrossPromoRemoveAdsInfoView()
             }
         }
@@ -64,10 +64,10 @@ struct ContentView: View {
 
     private func refreshInterstitialAd() async {
         guard removeAdsStore.isAdsRemoved == false else { return }
-        guard let url = BillboardConfiguration.crossPromo.adsJSONURL else { return }
-        interstitialAd = try? await BillboardViewModel.fetchRandomAd(
+        guard let url = AdConfiguration.crossPromo.adsJSONURL else { return }
+        interstitialAd = try? await AdStore.fetchRandomAd(
             from: url,
-            excludedIDs: BillboardConfiguration.crossPromo.excludedIDs
+            excludedIDs: AdConfiguration.crossPromo.excludedIDs
         )
     }
 

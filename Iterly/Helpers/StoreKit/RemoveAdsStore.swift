@@ -6,7 +6,7 @@
 import StoreKit
 
 /// Tracks entitlement for the one-time "Remove Ads" non-consumable purchase that silences the
-/// Billboard cross-promo ads (see `CrossPromoBannerView` and `ContentView`'s interstitial). The
+/// PrivateAds cross-promo ads (see `CrossPromoBannerView` and `ContentView`'s interstitial). The
 /// purchase button itself is StoreKit's `ProductView` in `CrossPromoRemoveAdsInfoView` — this
 /// store only needs to know whether the entitlement is held, and to drive the restore flow that
 /// `ProductView` doesn't provide on its own.
